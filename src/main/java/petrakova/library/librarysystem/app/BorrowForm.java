@@ -309,7 +309,8 @@ public class BorrowForm extends javax.swing.JPanel {
 
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(addButton, ex.getMessage(),
-                        "Error Message", JOptionPane.ERROR_MESSAGE);            
+                        "Error Message", JOptionPane.ERROR_MESSAGE);   
+            return;
         }
         
     }

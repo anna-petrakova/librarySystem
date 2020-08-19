@@ -288,6 +288,7 @@ public class ItemForm extends javax.swing.JPanel {
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(addBookButton, ex.getMessage(),
                         "Error Message", JOptionPane.ERROR_MESSAGE);
+            return;
         }
     }
     
@@ -313,6 +314,7 @@ public class ItemForm extends javax.swing.JPanel {
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(addMagazineButton, ex.getMessage(),
                         "Error Message", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         
         changeTableData();
