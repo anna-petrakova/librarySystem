@@ -24,5 +24,12 @@ public class Magazine extends LibraryItem {
     public int getIssueNumber() {
         return issueNumber;
     }
+
+    @Override
+    public void validateItem() {
+        if (issueNumber < 0) {
+            throw new IllegalArgumentException("Issue number can not be negative.");
+        }
+    }
     
 }

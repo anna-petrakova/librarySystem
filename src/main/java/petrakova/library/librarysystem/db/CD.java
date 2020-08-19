@@ -24,5 +24,12 @@ public class CD extends LibraryItem {
     public String getBandName() {
         return bandName;
     }
+
+    @Override
+    public void validateItem() {
+        // validate band name
+    }
+    
+    
     
 }

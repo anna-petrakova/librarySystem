@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.hibernate.Session;
 import org.springframework.context.ApplicationContext;
@@ -25,31 +24,27 @@ import petrakova.library.librarysystem.db.DatabaseConnection;
  *
  * @author Anna Petráková
  */
-public class ListClient extends javax.swing.JFrame {
+public class ClientForm extends javax.swing.JPanel {
     private Session session = DatabaseConnection.getSession();
     private ApplicationContext factory = BeanFactory.getFactory();
+    private ClientManager clientManager = ClientManagerImpl.getInstance();
+    private BorrowManager borrowManager = BorrowManagerImpl.getInstance();
     private ListSelectionModel model;
     private List<Client> clients = new ArrayList<>();
     private ClientTableModel tableModel = new ClientTableModel(clients);
-    private ClientManager clientManager = ClientManagerImpl.getInstance();
-    private BorrowManager borrowManager = BorrowManagerImpl.getInstance();
+    private ListSwingWorker listSwingWorker = new ListSwingWorker();
 
     /**
-     * Creates new form SearchClient
+     * Creates new form ClientForm
      */
-    public ListClient() {
+    public ClientForm() {
         initComponents();
         
         clientsTable.setModel(tableModel);
         clientsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         model = clientsTable.getSelectionModel();
-
-        deleteButton.setEnabled(false);
-        deleteButton.setVisible(false);
         
-        ListSwingWorker listSwingWorker = new ListSwingWorker();
         listSwingWorker.execute();
-        
     }
 
     /**
@@ -62,14 +57,28 @@ public class ListClient extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        nameField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        surnameField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        emailField = new javax.swing.JTextField();
+        addButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         clientsTable = new javax.swing.JTable();
         deleteButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel1.setText("First name:");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("List clients");
+        jLabel2.setText("Surname:");
+
+        jLabel3.setText("Email:");
+
+        addButton.setText("Add client");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
 
         clientsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -84,48 +93,76 @@ public class ListClient extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(clientsTable);
 
-        deleteButton.setText("Delete");
+        deleteButton.setText("Delete client");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(129, 129, 129)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(surnameField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addButton)
+                .addGap(0, 14, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(deleteButton)
                 .addContainerGap())
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(surnameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deleteButton)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        if (nameField.getText().isEmpty() || surnameField.getText().isEmpty() || emailField.getText().isEmpty() ) {
+            JOptionPane.showMessageDialog(addButton, "Fields must be filled",
+                        "Error Message", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        submit();
+    }//GEN-LAST:event_addButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         if (getSelectedClientId() == null) {
+            JOptionPane.showMessageDialog(null, "You must choose a client to be deleted",
+                    "Error Message", JOptionPane.ERROR_MESSAGE);
             return;
         }
         delete();
     }//GEN-LAST:event_deleteButtonActionPerformed
-    
+
     public Long getSelectedClientId() {
         if (model.getMaxSelectionIndex() == -1) {
             return null;
@@ -133,16 +170,34 @@ public class ListClient extends javax.swing.JFrame {
         return (Long) tableModel.getValueAt(model.getMaxSelectionIndex(), 0);
     }
     
-    public void setDeleteButton() {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                deleteButton.setVisible(true);
-                deleteButton.setEnabled(true);
-            }
-        });
+    private void submit() {
+        Client client = factory.getBean(Client.class);
+
+        client.setFirstName(nameField.getText());
+        client.setSurname(surnameField.getText());
+        client.setEmail(emailField.getText());
+
+        try {
+            clientManager.createClient(client);
+
+            JOptionPane.showMessageDialog(addButton, "Successfully added client",
+                    "Confirmation Message", JOptionPane.INFORMATION_MESSAGE);
+            nameField.setText("");
+            surnameField.setText("");
+            emailField.setText("");
+
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(addButton, ex.getMessage(),
+                    "Error Message", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        clients = clientManager.findAllClients();
+            
+        tableModel.setClients(clients);
+        tableModel.fireTableDataChanged();
     }
     
-    public void delete() {
+    private void delete() {
         Client client = clientManager.findClientById(getSelectedClientId());
 
         if (borrowManager.findItemsForClient(client).size() != 0) {
@@ -158,19 +213,15 @@ public class ListClient extends javax.swing.JFrame {
         tableModel.fireTableDataChanged();
     }
     
+    
+    
     private class ListSwingWorker extends SwingWorker<Void, Void> {
 
         @Override
         protected Void doInBackground() throws Exception {
             List<Client> clientsFound;
             
-            try {
-                clientsFound = clientManager.findAllClients();
-            } catch (IllegalArgumentException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(),
-                        "Error Message", JOptionPane.ERROR_MESSAGE);
-                 clientsFound = new ArrayList<>();
-            }
+            clientsFound = clientManager.findAllClients();
             
             clients = clientsFound;
             tableModel.setClients(clients);
@@ -180,9 +231,15 @@ public class ListClient extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
     private javax.swing.JTable clientsTable;
     private javax.swing.JButton deleteButton;
+    private javax.swing.JTextField emailField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField nameField;
+    private javax.swing.JTextField surnameField;
     // End of variables declaration//GEN-END:variables
 }

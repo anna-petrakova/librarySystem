@@ -14,7 +14,7 @@ import javax.persistence.Id;
  * @author Anna Petráková
  */
 @Entity
-public class LibraryItem {
+public abstract class LibraryItem {
     @Id
     @GeneratedValue
     private long id;
@@ -35,5 +35,7 @@ public class LibraryItem {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public abstract void validateItem();
     
 }

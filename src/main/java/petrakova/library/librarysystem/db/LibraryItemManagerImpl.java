@@ -34,6 +34,8 @@ public class LibraryItemManagerImpl implements LibraryItemManager {
             throw new IllegalArgumentException("Library item can not be null");
         }
         
+        item.validateItem();
+        
         Transaction tx = session.beginTransaction();   
         session.save(item);
         
@@ -42,6 +44,9 @@ public class LibraryItemManagerImpl implements LibraryItemManager {
 
     @Override
     public void deleteLibraryItem(LibraryItem item) {
+        if (item  == null) {
+            throw new IllegalArgumentException("Client is null");
+        }
         
         Transaction tx = session.beginTransaction();   
         

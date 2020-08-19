@@ -78,6 +78,47 @@ public class BorrowManagerImpl implements BorrowManager {
         tx.commit();
 
     }
+    
+    public void createBorrow(Borrow borrow) {
+        Client client = borrow.getClient();
+        LibraryItem item = borrow.getItem();
+        
+        if (client == null) {
+            throw new IllegalArgumentException("client can not be null");
+        }
+        if (item == null) {
+            throw new IllegalArgumentException("item can not be null");
+        }
+        if (client.getId() == 0) {
+            throw new IllegalArgumentException("client has null id");
+        }
+        if (item.getId() == 0) {
+            throw new IllegalArgumentException("item has null id");
+        }
+        if (itemManager.findLibraryItemById(item.getId()) == null) {
+            throw new IllegalArgumentException("item not in db");
+        }
+
+        if (clientManager.findClientById(client.getId()) == null) {
+            throw new IllegalArgumentException("client does not exist in database");
+        }
+        if (itemManager.findLibraryItemById(item.getId()) == null) {
+            throw new IllegalArgumentException("item does not exist in database");
+        }
+        if (clientManager.findClientById(client.getId()) == null) {
+            throw new IllegalArgumentException("client not in db");
+        }
+
+        if (findClientForItem(item) != null) {
+            throw new IllegalArgumentException("item already has assigned client");
+        }
+        
+        validate(borrow);
+        
+        Transaction tx = session.beginTransaction(); 
+        session.save(borrow);        
+        tx.commit();
+    }
 
     @Override
     public void deleteBorrow(Client client, LibraryItem item) {
@@ -114,6 +155,18 @@ public class BorrowManagerImpl implements BorrowManager {
         Transaction tx = session.beginTransaction();   
         
         Query q = session.createQuery("delete from Borrow where client_id=" + client.getId() + " and item_id=" + item.getId());
+        q.executeUpdate();               
+        
+        tx.commit();
+    }
+    
+    public void deleteBorrow(Borrow borrow) {
+        if (borrow == null) {
+            throw new IllegalArgumentException("Client is null");
+        }
+        Transaction tx = session.beginTransaction();   
+        
+        Query q = session.createQuery("delete from Borrow where id=" + borrow.getId());
         q.executeUpdate();               
         
         tx.commit();
@@ -229,6 +282,13 @@ public class BorrowManagerImpl implements BorrowManager {
         tx.commit();        
         
         return items;
+    }
+    
+    public List<Borrow> findAllBorrows() {
+        Query q = session.createQuery("from Borrow");
+        List<Borrow> borrows = q.list();
+        
+        return borrows;
     }
     
     private void validate(Borrow borrow) {

@@ -5,25 +5,37 @@
  */
 package petrakova.library.librarysystem.app;
 
-import javax.swing.WindowConstants;
-import org.hibernate.Session;
-import org.springframework.context.ApplicationContext;
-import petrakova.library.librarysystem.db.BeanFactory;
-import petrakova.library.librarysystem.db.DatabaseConnection;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  *
  * @author Anna Petráková
  */
 public class MainForm extends javax.swing.JFrame {
-    private Session session = DatabaseConnection.getSession();
-    private ApplicationContext factory = BeanFactory.getFactory();
 
     /**
      * Creates new form MainForm
      */
     public MainForm() {
         initComponents();
+        this.setTitle("Library system");
+        
+        JPanel clientPanel = new ClientForm();
+        jTabbedPane1.add("Client", clientPanel);
+        
+        JPanel itemPanel = new ItemForm();
+        jTabbedPane1.add("Item", itemPanel);
+        
+        JPanel borrowPanel = new BorrowForm();
+        jTabbedPane1.add("Borrow", borrowPanel);
+        
+        
+        //panel1.add(new JTextArea(100,100));
+        //jTabbedPane1.add("main", panel1);
+        
+        //JPanel pane2 = new JPanel();
+        //jTabbedPane1.add("rss", pane2);
     }
 
     /**
@@ -35,283 +47,27 @@ public class MainForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        AddClient = new javax.swing.JButton();
-        assignItemButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        changeBorrowButton = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        deleteClient = new javax.swing.JButton();
-        deleteItem = new javax.swing.JButton();
-        viewClients = new javax.swing.JButton();
-        viewItems = new javax.swing.JButton();
-        viewAssignedItems = new javax.swing.JButton();
-        buttonAddBook = new javax.swing.JButton();
-        buttonAddMagazine = new javax.swing.JButton();
-        buttonAddCD = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Library System");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("ADD");
-
-        AddClient.setText("Add client");
-        AddClient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddClientActionPerformed(evt);
-            }
-        });
-
-        assignItemButton.setText("Assign item to client");
-        assignItemButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assignItemButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("CHANGE");
-
-        changeBorrowButton.setText("Change existing borrow");
-        changeBorrowButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changeBorrowButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setText("VIEW");
-
-        deleteClient.setText("Delete client");
-        deleteClient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteClientActionPerformed(evt);
-            }
-        });
-
-        deleteItem.setText("Delete item");
-        deleteItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteItemActionPerformed(evt);
-            }
-        });
-
-        viewClients.setText("View all clients");
-        viewClients.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewClientsActionPerformed(evt);
-            }
-        });
-
-        viewItems.setText("View all items");
-        viewItems.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewItemsActionPerformed(evt);
-            }
-        });
-
-        viewAssignedItems.setText("View all borrows of a client");
-        viewAssignedItems.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewAssignedItemsActionPerformed(evt);
-            }
-        });
-
-        buttonAddBook.setText("Add book");
-        buttonAddBook.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAddBookActionPerformed(evt);
-            }
-        });
-
-        buttonAddMagazine.setText("Add magazine");
-        buttonAddMagazine.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAddMagazineActionPerformed(evt);
-            }
-        });
-
-        buttonAddCD.setText("Add CD");
-        buttonAddCD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAddCDActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(AddClient)
-                    .addComponent(jLabel3)
-                    .addComponent(changeBorrowButton)
-                    .addComponent(jLabel4)
-                    .addComponent(deleteClient)
-                    .addComponent(deleteItem)
-                    .addComponent(viewClients)
-                    .addComponent(viewItems)
-                    .addComponent(viewAssignedItems)
-                    .addComponent(assignItemButton)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonAddBook)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonAddMagazine)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonAddCD)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(73, 73, 73))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AddClient)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonAddBook)
-                            .addComponent(buttonAddMagazine)
-                            .addComponent(buttonAddCD))
-                        .addGap(4, 4, 4)))
-                .addComponent(assignItemButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(changeBorrowButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(deleteClient)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(deleteItem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(viewClients)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(viewItems)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(viewAssignedItems)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void AddClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddClientActionPerformed
-      
-        AddClient addClient = new AddClient();
-        addClient.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        
-        addClient.pack();
-        addClient.setVisible(true);
-    }//GEN-LAST:event_AddClientActionPerformed
-
-    private void deleteClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteClientActionPerformed
-        
-        ListClient listClient = new ListClient();
-        listClient.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        listClient.setDeleteButton();
-
-        listClient.setVisible(true);
-    }//GEN-LAST:event_deleteClientActionPerformed
-
-    private void deleteItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteItemActionPerformed
-       
-        ListItem listItem = new ListItem();
-        listItem.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        listItem.setDeleteButton();
-
-        listItem.setVisible(true);
-    }//GEN-LAST:event_deleteItemActionPerformed
-
-    private void viewClientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewClientsActionPerformed
-        
-        ListClient listClient = new ListClient();
-        listClient.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        listClient.pack();
-        listClient.setVisible(true);
-    }//GEN-LAST:event_viewClientsActionPerformed
-
-    private void viewItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewItemsActionPerformed
-        
-        ListItem listItem = new ListItem();
-        listItem.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        
-        listItem.pack();
-        listItem.setVisible(true);
-    }//GEN-LAST:event_viewItemsActionPerformed
-
-    private void viewAssignedItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAssignedItemsActionPerformed
-        
-        ListBorrow listBorrow = new ListBorrow();
-        listBorrow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        listBorrow.pack();
-        listBorrow.setVisible(true);
-        
-        
-    }//GEN-LAST:event_viewAssignedItemsActionPerformed
-
-    private void assignItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignItemButtonActionPerformed
-        
-        ListBorrow listBorrow = new ListBorrow();
-        listBorrow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        listBorrow.pack();
-        listBorrow.setVisible(true);
-    }//GEN-LAST:event_assignItemButtonActionPerformed
-
-    private void changeBorrowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeBorrowButtonActionPerformed
-        
-        ListBorrow listBorrow = new ListBorrow();
-        listBorrow.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        listBorrow.setDeleteButton();
-
-        listBorrow.pack();
-        listBorrow.setVisible(true);
-    }//GEN-LAST:event_changeBorrowButtonActionPerformed
-
-    private void buttonAddBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddBookActionPerformed
-        
-        AddBook addBook = new AddBook();
-        addBook.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        addBook.pack();
-        addBook.setVisible(true);
-    }//GEN-LAST:event_buttonAddBookActionPerformed
-
-    private void buttonAddMagazineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddMagazineActionPerformed
-        
-        AddMagazine addMagazine = new AddMagazine();
-        addMagazine.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        addMagazine.pack();
-        addMagazine.setVisible(true);
-    }//GEN-LAST:event_buttonAddMagazineActionPerformed
-
-    private void buttonAddCDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddCDActionPerformed
-        
-        AddCD addCD = new AddCD();
-        addCD.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-        addCD.pack();
-        addCD.setVisible(true);
-    }//GEN-LAST:event_buttonAddCDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -349,20 +105,6 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddClient;
-    private javax.swing.JButton assignItemButton;
-    private javax.swing.JButton buttonAddBook;
-    private javax.swing.JButton buttonAddCD;
-    private javax.swing.JButton buttonAddMagazine;
-    private javax.swing.JButton changeBorrowButton;
-    private javax.swing.JButton deleteClient;
-    private javax.swing.JButton deleteItem;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JButton viewAssignedItems;
-    private javax.swing.JButton viewClients;
-    private javax.swing.JButton viewItems;
+    private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }

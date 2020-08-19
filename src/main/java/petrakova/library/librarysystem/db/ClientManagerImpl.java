@@ -34,6 +34,17 @@ public class ClientManagerImpl implements ClientManager {
             throw new IllegalArgumentException("Client can not be null");
         }
         
+        if (client.getFirstName() == null || client.getSurname() == null || client.getEmail() == null) {
+            throw new IllegalArgumentException("All clients values must be set");
+        }
+        
+        if (!client.getFirstName().matches("[A-Z]+[a-zA-Z]*")) {
+            throw new IllegalArgumentException("First name is not in the right format.");
+        }
+        if (!client.getSurname().matches("[A-Z]+[a-zA-Z]*")) {
+            throw new IllegalArgumentException("Sruname is not in the right format.");
+        }
+        
         if (client.getEmail() != null && !isValidAddress(client.getEmail())) {
             throw new IllegalArgumentException("email is not in the right format");
         }
@@ -46,6 +57,14 @@ public class ClientManagerImpl implements ClientManager {
 
     @Override
     public void deleteClient(Client client) {
+        if (client == null) {
+            throw new IllegalArgumentException("Client is null");
+        }
+        
+        if (findClientById(client.getId()) == null) {
+            throw new IllegalArgumentException("Client does not exist");
+        }
+        
         Transaction tx = session.beginTransaction();   
         
         Query q = session.createQuery("delete from Client where id=" + client.getId());
@@ -56,6 +75,9 @@ public class ClientManagerImpl implements ClientManager {
 
     @Override
     public Client findClientById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id is null");
+        }
         Transaction tx = session.beginTransaction();   
         
         Query q = session.createQuery("from Client where id=" + id);
@@ -76,6 +98,6 @@ public class ClientManagerImpl implements ClientManager {
     
     private boolean isValidAddress(String address) {
         return address.matches("[a-zA-Z0-9\\.]+@[a-zA-Z0-9\\-\\_\\.]+\\.[a-zA-Z0-9]+");
-    }
+    }    
     
 }

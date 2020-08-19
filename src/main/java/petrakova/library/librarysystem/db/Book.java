@@ -33,5 +33,15 @@ public class Book extends LibraryItem {
     public String getAuthor() {
         return author;
     }
+
+    @Override
+    public void validateItem() {
+        if (!author.matches("[A-Z]+[a-zA-Z]*")) {
+            throw new IllegalArgumentException("Authors name is not int the right format.");
+        }
+        if (!isbn.matches("[0-9\\-]+")) {
+            throw new IllegalArgumentException("ISBN is not int the right format.");
+        }        
+    }
     
 }

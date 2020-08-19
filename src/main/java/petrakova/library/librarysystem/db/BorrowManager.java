@@ -14,7 +14,11 @@ import java.util.List;
 public interface BorrowManager {
     void createBorrow(Client client, LibraryItem item);
     
+    void createBorrow(Borrow borrow);
+    
     void deleteBorrow(Client client, LibraryItem item);
+    
+    void deleteBorrow(Borrow borrow);
     
     void modifyBorrow(Borrow borrow);
     
@@ -23,6 +27,8 @@ public interface BorrowManager {
     Client findClientForItem(LibraryItem item);
     
     List<Borrow> findBorrowsForClient(Client client);
+    
+    List<Borrow> findAllBorrows();
     
     Borrow findBorrowById(long id);
     
