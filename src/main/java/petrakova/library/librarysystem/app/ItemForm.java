@@ -290,6 +290,8 @@ public class ItemForm extends javax.swing.JPanel {
                         "Error Message", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        changeTableData();
     }
     
     public void submitMagazine() {

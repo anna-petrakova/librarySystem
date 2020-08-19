@@ -192,10 +192,7 @@ public class ClientForm extends javax.swing.JPanel {
             return;
         }
         
-        clients = clientManager.findAllClients();
-            
-        tableModel.setClients(clients);
-        tableModel.fireTableDataChanged();
+        changeTableData();
     }
     
     private void delete() {
@@ -208,13 +205,15 @@ public class ClientForm extends javax.swing.JPanel {
         }
         clientManager.deleteClient(client);
         
+        changeTableData();
+    }
+    
+    private void changeTableData() {
         clients = clientManager.findAllClients();
-            
+        
         tableModel.setClients(clients);
         tableModel.fireTableDataChanged();
     }
-    
-    
     
     private class ListSwingWorker extends SwingWorker<Void, Void> {
 

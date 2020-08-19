@@ -29,13 +29,7 @@ public class MainForm extends javax.swing.JFrame {
         
         JPanel borrowPanel = new BorrowForm();
         jTabbedPane1.add("Borrow", borrowPanel);
-        
-        
-        //panel1.add(new JTextArea(100,100));
-        //jTabbedPane1.add("main", panel1);
-        
-        //JPanel pane2 = new JPanel();
-        //jTabbedPane1.add("rss", pane2);
+               
     }
 
     /**
